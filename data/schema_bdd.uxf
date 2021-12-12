@@ -1,0 +1,31 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>80</x><y>70</y><w>170</w><h>160</h></coordinates><panel_attributes>User
+--
+
+ID: INT                          PK AI
+FirstName: TEXT
+LastName: TEXT
+Address: VARCHAR
+BirthDate: DATE
+Advisor: TEXT
+PhoneNumber: INT</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>70</y><w>180</w><h>160</h></coordinates><panel_attributes>Account
+--
+
+ID: INT                             PK AI
+AccountNumber: INT
+Type: TEXT
+CreationDate: DATE
+AccountMail: VARCHAR
+Password: VARCHAR</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>410</y><w>200</w><h>160</h></coordinates><panel_attributes>Last OP
+--
+
+ID: INT                                   PK AI
+TransactionType:  TEXT
+Description: VARCHAR
+Date: DATE
+Amount: VARCHAR</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>150</y><w>230</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>210;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>220</y><w>230</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;190;210;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>280</x><y>120</y><w>140</w><h>70</h></coordinates><panel_attributes>1
+
+
+                                   N</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>370</x><y>300</y><w>140</w><h>70</h></coordinates><panel_attributes>                                  1
+
+
+ N</panel_attributes><additional_attributes></additional_attributes></element></diagram>
