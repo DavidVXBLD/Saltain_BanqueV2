@@ -7,7 +7,7 @@ include "template/nav.php";
 ?>
 
 <main class="container bigScreenPadding">
-    <h2>Vos comptes bancaires</h2>
+    <h2 class="border-danger border-bottom">Vos comptes bancaires</h2>
     <div class="row mt-5">
         <?php foreach ($accounts as $key => $account): ?>
             <div class="col-12 col-md-6 col-lg-4">

@@ -94,12 +94,8 @@ textarea {
     padding: 6vh 2vw;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Alata', sans-serif;
-  }
-  
-  nav a, footer p {
-    font-family: 'Comfortaa', cursive;
+  h1, h2, h3, h4, h5, h6, p, a {
+    font-family: 'Lora', serif;
   }
   
   .layer {
