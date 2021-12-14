@@ -2,6 +2,8 @@
 require "data/acounts.php";
 $accounts = get_accounts();
 
+require "connexion_bdd.php";
+
 include "template/header.php";
 include "template/nav.php";
 ?>
