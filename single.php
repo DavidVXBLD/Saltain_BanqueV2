@@ -1,45 +1,45 @@
 <?php
-require "data/acounts.php";
-include "template/nav.php";
-include "template/header.php";
-?>
+try {
+    $db = new PDO('mysql:host=localhost;dbname=saltain_banque', 'root','');
+} 
+catch (\Exception $e) {
+    echo "Erreur lors de la connexion à la base de données: " . $e->getMessage() . "<br/>";
+    die();
+}
 
-<?php
-if(!empty($_GET)):
-  $pos = htmlspecialchars($_GET["id"]);
-  $account = get_accounts()[$pos];
-  if ($account):
+$sqlQuery = 'SELECT * FROM Account WHERE account_customer_id = :cstmr_id';
+$AccountStatement = $db->prepare($sqlQuery);
+$AccountStatement->execute(["cstmr_id" => $_SESSION['customer_id']]);
+$Account = $AccountStatement->fetchAll();
+
+$db_customer = 'SELECT firstname, lastname from Customer INNER JOIN Account ON customer.id = account_customer_id';
+$customerStatement = $db->prepare($db_customer);
+$customerStatement->execute();
+$customer = $customerStatement->fetchAll();
+
+$db_op = 'SELECT op_amount, op_date, op_type from Last_op INNER JOIN Account ON operation.last_op_account_id = account.id';
+$opStatement = $db->prepare($operation_db);
+$opStatement->execute();
+$op = $opStatement->fetchAll();
+
+for ($i = 0; $i < count($Account); $i++) {
 ?>
 
 <main class="container padding">
-    <h2>Détails du compte : </h2>
-    <div class="row mt-5">
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card">
-            <div class="card-header">
-                <h5 class="card-title"><?php echo $account["name"]; ?></h5>
-                <h6 class="card-subtitle mb-2 text-muted"><?php echo $account["number"]; ?></h6>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush border-bottom mb-2">
-                    <li class="list-group-item">Propriétaire : <?php echo $account["owner"]; ?></li>
-                    <li class="list-group-item">Solde : <?php echo $account["amount"]; ?></li>
-                    <li class="list-group-item">Dernière opération : <?php echo $account["last_operation"]; ?></li>
-                </ul>
-                <a href="#" class="btn btn-danger">Clôturer</a>
-                <a href="depotretrait.php" class="btn btn-danger">Dépot/retrait</a>
-                <a href="#" class="btn btn-danger">Voir</a>
-            </div>
-        </article>
+  <div class='col-xl-3 col-md-6'>
+    <div class='card bg-secondary text-white mb-4'>
+      <div class='card-body '>
+        <p class='card-text'>Type de compte : <?php echo $Account[$i]['account_type']; ?></p>
+        <p class='card-text'>N° : <?php echo $Account[$i]['account_number']; ?></p>
+        <p class='card-text'>Solde : <?php echo $Account[$i]['amount']; ?> €</p>
+        <p class='card-text'>Date de création : <?php echo $Account[$i]['creation_date']; ?></p>
+        <p class='card-text'>Propriétaire : <?php echo $customer[$i]['lastname']; ?> <?php echo $customer[$i]['firstname']; ?> </p>
+        <p class='card-text'>Dernière opération : <br> <?php echo $op[$i]['op_type']; ?> - <?php echo $op[$i]['op_date']; ?> - <?php echo $op[$i]['op_amount']; ?> € </p>
+        <a href="account_detail.php?id=<?php echo $Account[$i]['id'] ?>"><button class="btn btn-warning">Voir détails</button></a>
       </div>
     </div>
-    <?php endif; ?>
-    <?php else: ?>
-    <div class="alert alert-danger">
-        <p>Nous avons rencontré un problème, aucun compte ne correspond à votre demande</p>
-    </div>
-    <?php endif; ?>
+  </div>
+<?php
+}
+?>
 </main>
-
-<?php $script = "<script src='js/main.js'></script>"; ?>
-<?php include "template/footer.php"; ?>
