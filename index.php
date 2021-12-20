@@ -1,26 +1,14 @@
 <?php
-// require "data/acounts.php";
-// $accounts = get_accounts();
+require "model/accountModel.php";
+// Check if user is logged
+session_start();
+if(!isset($_SESSION["user"])) {
+  header("Location: login.php");
+  exit();
+}
 
-require "connexion_bdd.php";
+// Get all the accounts with the last operation
+$accounts = get_accounts($db, $_SESSION["user"]);
 
-include "template/header.php";
-require "login.php";
+require "view/indexView.php";
 ?>
-
-<div class="row mt-4 p-3">
-
-<?php
-if(isset($_SESSION['LOGGED_CUSTOMER'])):
-    echo "bienvenu";
-header("single.php");
-endif; 
-?>
-</div>
-
-
-
-
-<?php $script = "<script src='js/layer.js'></script>"; ?>
-
-<?php include "template/footer.php"; ?>
